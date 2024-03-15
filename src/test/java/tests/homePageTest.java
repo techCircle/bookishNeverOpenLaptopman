@@ -21,7 +21,6 @@ public class homePageTest {
 		cP.selectMainNavOption("shop");
 		commonMethods.click(sP.homeButton);
 		Assert.assertTrue(hP.threeSliders.size() == 3);
-		//
 	}
 
 	@Test
