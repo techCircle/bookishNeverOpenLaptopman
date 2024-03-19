@@ -3,25 +3,24 @@ package tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import Utilities.RetryAnalyzer;
 import Utilities.commonMethods;
-import pages.commonPage;
-import pages.homePage;
-import pages.productPage;
-import pages.shopPage;
 
-public class homePageTest {
+public class homePageTest extends commonMethods {
 
-	commonPage cP = new commonPage();
-	shopPage sP = new shopPage();
-	homePage hP = new homePage();
-	productPage pP = new productPage();
 
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	public void homePageWithThreeSlidersOnly() throws InterruptedException {
 		cP.selectMainNavOption("shop");
 		commonMethods.click(sP.homeButton);
 		Assert.assertTrue(hP.threeSliders.size() == 3);
 		//
+	}
+	
+	
+	@Test(retryAnalyzer = RetryAnalyzer.class)
+	public void testingRetry() {
+			Assert.assertTrue(true);
 	}
 
 	@Test

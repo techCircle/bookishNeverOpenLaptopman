@@ -10,7 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -56,14 +56,15 @@ public class BaseClass {
 			}
 			driver.get(BaseClass.getProperty("url"));
 			driver.manage().window().maximize();
-			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(Constants.implicit_wait_time, TimeUnit.SECONDS);
+			PageInitializer.initialize();
 
 		}
 
 		return driver;
 	}
 
-	@AfterMethod
+	@AfterTest
 	public static void teardDown() {
 		if (BaseClass.getDriver() != null) {
 			BaseClass.getDriver().close();
@@ -82,7 +83,7 @@ public class BaseClass {
 			try {
 			
 				// config reader function
-				String filePath = "src/test/resources/propertiesFolder/config.properties";
+				String filePath = Constants.configProperty_filePath;
 				// open a connection to a file
 				FileInputStream inputStream = new FileInputStream(filePath);
 				

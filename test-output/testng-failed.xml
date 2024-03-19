@@ -5,7 +5,9 @@
     <classes>
       <class name="tests.homePageTest">
         <methods>
-          <include name="homePageImagesInArrivalsShouldNavigate"/>
+          <include name="testingRetry"/>
+          <include name="teardDown"/>
+          <include name="getDriver"/>
         </methods>
       </class> <!-- tests.homePageTest -->
     </classes>

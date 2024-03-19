@@ -9,7 +9,7 @@ import Utilities.BaseClass;
 public class productPage {
 	
 	
-	public void productPage() {
+	public productPage() {
 		PageFactory.initElements(BaseClass.getDriver(), this);
 	}
 	

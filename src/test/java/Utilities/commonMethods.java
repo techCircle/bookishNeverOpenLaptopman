@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
@@ -22,7 +23,11 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.UnexpectedTagNameException;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class commonMethods {
+import com.github.javafaker.Faker;
+import com.github.javafaker.service.FakeValuesService;
+import com.github.javafaker.service.RandomService;
+
+public class commonMethods extends PageInitializer {
 
 	public static void sendKey(WebElement element, String text) {
 		element.clear();
@@ -36,6 +41,70 @@ public class commonMethods {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static void TINY_WAIT() {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void SMALL_WAIT() {
+		try {
+			Thread.sleep(1000 * 5);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void MEDIUM_WAIT() {
+		try {
+			Thread.sleep(1000 * 15);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void LARGE_WAIT() {
+		try {
+			Thread.sleep(1000 * 30);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void X_LARGE_WAIT() {
+		try {
+			Thread.sleep(1000 * 60);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void MAJOR_WAIT() {
+		try {
+			Thread.sleep(1000 * 120);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void HUGE_WAIT() {
+		try {
+			Thread.sleep(1000 * 360);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void ULTIMATE_WAIT() {
+		try {
+			Thread.sleep(1000 * 600);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void clickRadioOrCheckbox(List<WebElement> radioOrCheckbox, String value) {
@@ -130,10 +199,8 @@ public class commonMethods {
 		}
 	}
 
-	//
-
 	public static WebDriverWait getWaitObject() {
-		WebDriverWait wait = new WebDriverWait(BaseClass.getDriver(), 30);
+		WebDriverWait wait = new WebDriverWait(BaseClass.getDriver(), Constants.explicit_wait_time);
 		return wait;
 	}
 
@@ -149,7 +216,7 @@ public class commonMethods {
 		waitForVisibility(element).click();
 	}
 
-	public static void sendKey(String keys, WebElement element) {
+	public static void sendKeyDynamically(String keys, WebElement element) {
 		waitForVisibility(element).sendKeys(keys);
 	}
 
@@ -198,18 +265,38 @@ public class commonMethods {
 		}
 
 	}
-	
-	
+
 	public static void scrollToElement(WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor) BaseClass.getDriver();
 		js.executeScript("arguments[0].scrollIntoView(true);", element);
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	public static String generateEmail() {
+		FakeValuesService fakeValuesService = new FakeValuesService(new Locale("en-GB"), new RandomService());
+		return fakeValuesService.bothify("????##@gmail.com");
+	}
+
+	public static Faker getFakerObject() {
+		Faker faker = new Faker();
+		return faker;
+	}
+
+	public static String generateAddress() {
+
+		String streetName = getFakerObject().address().streetName();
+		String number = getFakerObject().address().buildingNumber();
+		String city = getFakerObject().address().city();
+		String country = getFakerObject().address().country();
+
+		return String.format("%s\n%s\n%s\n%s", number, streetName, city, country);
+	}
+
+	public static String generateBeer() {
+		return getFakerObject().beer().name();
+	}
+
+	public static String chuckNorrisFact() {
+		return getFakerObject().chuckNorris().fact();
+	}
 
 }
